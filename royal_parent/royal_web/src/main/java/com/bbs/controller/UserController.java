@@ -13,9 +13,10 @@ import org.springframework.web.servlet.ModelAndView;
 public class UserController {
     @Autowired
     private UserService userService;
+
     @RequestMapping("/findByNameAndPass")
-    public ModelAndView findByNameAndPass (@RequestParam(required = true,name = "userName") String userName,
-                                           @RequestParam(required = true,name = "userPass") String userPass) throws Exception {
+    public ModelAndView findByNameAndPass(@RequestParam(required = true, name = "userName") String userName,
+                                          @RequestParam(required = true, name = "userPass") String userPass) throws Exception {
         ModelAndView mv = new ModelAndView();
         User user = userService.findByNameAndPass(userPass, userName);
         //判断user是否为空
@@ -30,8 +31,27 @@ public class UserController {
         }
         return mv;
     }
-    public ModelAndView findAll(){
+
+    /***
+     * 查询用户id
+     * @param userId
+     * @return
+     */
+    @RequestMapping("/findByid.do")
+    public ModelAndView findByid(Integer userId) {
         ModelAndView modelAndView = new ModelAndView();
-        return null;
+        User user = userService.findByid(userId);
+        modelAndView.addObject("user", user);
+        modelAndView.setViewName("userInfo");
+        return modelAndView;
+    }
+
+    @RequestMapping("/updateEmail.do")
+    public String updateEmail(@RequestParam(name = "id") Integer userId, String picUrl,String email) {
+        ModelAndView modelAndView = new ModelAndView();
+        userService.update(userId,picUrl,email);
+        modelAndView.addObject(email,picUrl);
+
+        return "redirect:findByid.do";
     }
 }
