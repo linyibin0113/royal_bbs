@@ -1,5 +1,6 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c"%>
+
 <html>
 <head>
     <meta charset="UTF-8"/>
@@ -74,6 +75,7 @@
             <!-- 左侧列表 -->
             <div class="list-view l">
                 <ul>
+                    <c:forEach items="${articleList}" var="article"></c:forEach>
 
 
                     <li class="clearfix ding">
@@ -199,7 +201,7 @@
 </div>
 
 <!-- 发帖弹出框 -->
-<form action="" method="post">
+<form action="article/save.do" method="post">
     <div class="pop-box ft-box">
         <div class="mask"></div>
         <div class="win">
