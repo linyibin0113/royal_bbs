@@ -3,12 +3,12 @@
 <head>
     <title>登录页面</title>
     <!-- 最新版本的 Bootstrap 核心 CSS 文件 -->
-    <link rel="stylesheet" href="/bootstrap/bootstrap.min.css">
+    <link rel="stylesheet" href="${pageContext.request.contextPath}/bootstrap/bootstrap.min.css">
     <!-- 可选的 Bootstrap 主题文件（一般不用引入） -->
-    <link rel="stylesheet" href="/bootstrap/bootstrap-theme.min.css">
-    <script src="/bootstrap/jquery-1.11.0.min.js"></script>
+    <link rel="stylesheet" href="${pageContext.request.contextPath}/bootstrap/bootstrap-theme.min.css">
+    <script src="${pageContext.request.contextPath}/bootstrap/jquery-1.11.0.min.js"></script>
     <!-- 最新的 Bootstrap 核心 JavaScript 文件 -->
-    <script src="/bootstrap/bootstrap.min.js"></script>
+    <script src="${pageContext.request.contextPath}/bootstrap/bootstrap.min.js"></script>
 
 </head>
 <body>
