@@ -30,19 +30,19 @@
 
                         <div class="carousel-inner" role="listbox">
                             <div class="item active" style="text-align: center;">
-                                <img class="img-responsive center-block" src="/img/img1.jpg" alt="company1">
+                                <img class="img-responsive center-block" src="${pageContext.request.contextPath}/img/img1.jpg" alt="company1">
                                 <div class="carousel-caption">
                                     <h3>妲己</h3>
                                 </div>
                             </div>
                             <div class="item">
-                                <img class="img-responsive center-block" src="/img/img2.jpg" alt="company2">
+                                <img class="img-responsive center-block" src="${pageContext.request.contextPath}/img/img2.jpg" alt="company2">
                                 <div class="carousel-caption">
                                     <h3>狄仁杰</h3>
                                 </div>
                             </div>
                             <div class="item">
-                                <img class="img-responsive center-block" src="/img/img3.jpg" alt="company3">
+                                <img class="img-responsive center-block" src="${pageContext.request.contextPath}/img/img3.jpg" alt="company3">
                                 <div class="carousel-caption">
                                     <h3>韩信</h3>
                                 </div>
