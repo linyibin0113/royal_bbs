@@ -40,9 +40,9 @@
                 </p>
             </div>
             <div class="search-box l">
-                <form action="javascript:;">
-                    <input type="text" class="txt l" placeholder="请输入关键字">
-                    <input type="button" value="搜索" class="btn l"/>
+                <form action="${pageContext.request.contextPath}/article/search" method="post">
+                    <input type="text" class="txt l" placeholder="请输入关键字" name="title">
+                    <input type="submit" value="搜索" class="btn l"/>
                 </form>
             </div>
         </div>
@@ -75,76 +75,46 @@
             <div class="list-view l">
                 <ul>
 
+                    <c:forEach items="${articleList}" var="article">
+                        <li class="clearfix ding">
+                            <div class="hm-index-title">
+                                <i class="set-to-top">${article.isTop}</i> <a href="getArticle.do">${article.title}</a>
+                            </div>
+                            <div class="hm-index-con">${article.content}</div>
+                            <div class="hm-index-info l">
+                                <span class="article-username">${article.senderName}</span>
+                                <span class="post-time">${article.sendTime}</span>
+                            </div>
+                            <div class="hm-index-fun r">
+                                <span class="icon-like"><i></i>${article.upvoteCount}</span>
+                                <span class="icon-talk"><i></i>${article.replyCount}</span>
+                            </div>
+                        </li>
+
+                    </c:forEach>
+
 
                     <li class="clearfix ding">
                         <div class="hm-index-title">
-                            <i class="set-to-top">顶</i> <a href="getArticle.do">求官方出艾琳英雄活动</a>
+                            <i class="set-to-top">顶</i> <a href="getArticle.do">标题</a>
                         </div>
-                        <div class="hm-index-con">本人玩得迟，所以看到别人用艾琳的时候，特别羡慕，现贵族6了，很想要一个艾琳，我身边很多朋友也想要，求</div>
+                        <div class="hm-index-con">非哈佛哈佛哈佛</div>
                         <div class="hm-index-info l">
                             <span class="article-username">晨曦初露</span>
-                            <span class="post-time">2017-05-24 08:00:05</span>
+                            <span class="post-time">时间</span>
                         </div>
                         <div class="hm-index-fun r">
-                            <span class="icon-like"><i></i>1</span>
-                            <span class="icon-talk"><i></i>0</span>
+                            <span class="icon-like"><i></i>11</span>
+                            <span class="icon-talk"><i></i>02</span>
                         </div>
                     </li>
-
-
-
-                    <li class="clearfix ding">
-                        <div class="hm-index-title">
-                            <i class="set-to-top">顶</i> <a href="getArticle.do">求官方出艾琳英雄活动</a>
-                        </div>
-                        <div class="hm-index-con">本人玩得迟，所以看到别人用艾琳的时候，特别羡慕，现贵族6了，很想要一个艾琳，我身边很多朋友也想要，求</div>
-                        <div class="hm-index-info l">
-                            <span class="article-username">晨曦初露</span><span class="post-time">2017-05-24 08:00:05</span>
-                        </div>
-                        <div class="hm-index-fun r">
-                            <span class="icon-like"><i></i>1</span>
-                            <span class="icon-talk"><i></i>0</span>
-                        </div>
-                    </li>
-                    <li class="clearfix ding">
-                        <div class="hm-index-title">
-                            <i class="set-to-top">顶</i> <a href="getArticle.do">求官方出艾琳英雄活动</a>
-                        </div>
-                        <div class="hm-index-con">本人玩得迟，所以看到别人用艾琳的时候，特别羡慕，现贵族6了，很想要一个艾琳，我身边很多朋友也想要，求</div>
-                        <div class="hm-index-info l">
-                            <span class="article-username">晨曦初露</span><span class="post-time">2017-05-24 08:00:05</span>
-                        </div>
-                        <div class="hm-index-fun r">
-                            <span class="icon-like"><i></i>1</span>
-                            <span class="icon-talk"><i></i>0</span>
-                        </div>
-                    </li>
-
-
 
 
                     <li class="clearfix">
                         <div class="hm-index-title">
                             <i class="set-to-top">顶</i> <a href="getArticle.do">排位赛BUG，排不上！</a>
                         </div>
-                        <div class="hm-index-con">现在黄金2，无论怎么匹配，都匹配不到？有次匹配了10分钟，这是为什么？</div>
-                        <div class="hm-index-info l">
-                            <span class="article-username">不哭不闹不炫耀</span><span class="post-time">2017-05-24 09:10:00</span>
-                        </div>
-                        <div class="hm-index-fun r">
-                            <span class="icon-like"><i></i>3</span>
-                            <span class="icon-talk"><i></i>10</span>
-                        </div>
-                    </li>
-
-
-
-
-                    <li class="clearfix">
-                        <div class="hm-index-title">
-                            <i class="set-to-top">顶</i> <a href="getArticle.do">排位赛BUG，排不上！</a>
-                        </div>
-                        <div class="hm-index-con">现在黄金2，无论怎么匹配，都匹配不到？有次匹配了10分钟，这是为什么？</div>
+                        <div class="hm-index-con">匹配，都匹配不到？有次匹配了10分钟，这是为什么？</div>
                         <div class="hm-index-info l">
                             <span class="article-username">不哭不闹不炫耀</span><span class="post-time">2017-05-24 09:10:00</span>
                         </div>
