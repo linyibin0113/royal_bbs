@@ -1,5 +1,8 @@
 package com.bbs.domain;
 
+import com.bbs.utils.DateUtils;
+import org.springframework.format.annotation.DateTimeFormat;
+
 import java.io.Serializable;
 import java.util.Date;
 
@@ -10,14 +13,48 @@ public class Article implements Serializable {
     private Integer articleId;//帖子编号
     private String title;//标题
     private String content;//内容
+    @DateTimeFormat(pattern = "yyyy-MM-dd HH:mm")
     private Date sendTime;//发送时间
+    private String sendTimeStr;
+
     private String senderName;//发送人编号
+
     private Integer isTop;//是否置顶，如果是0，代表不置顶；如果是1，代表置顶；
+    private String isTopStr;
+
     private Integer replyCount;//评论数
     private Integer upvoteCount;//点赞数
     private Integer browseCount;//浏览数
     private Integer zoneId;//所在交流区
     private Integer isReport;//举报状态
+
+    public String getIsTopStr() {
+        if (isTop != null) {
+            if (isTop == 0) {
+                isTopStr = "不顶置";
+            }
+               else if (isTop == 1) {
+                    isTopStr = "顶置";
+                }
+            }
+
+        return isTopStr;
+    }
+
+    public void setIsTopStr(String isTopStr) {
+        this.isTopStr = isTopStr;
+    }
+
+    public String getSendTimeStr() {
+        if (sendTime != null) {
+            sendTimeStr = DateUtils.date2String(sendTime, "yyyy-MM-dd HH:mm");
+        }
+        return sendTimeStr;
+    }
+
+    public void setSendTimeStr(String sendTimeStr) {
+        this.sendTimeStr = sendTimeStr;
+    }
 
     public Integer getArticleId() {
         return articleId;
