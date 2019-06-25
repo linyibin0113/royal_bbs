@@ -15,7 +15,9 @@ public class Word implements Serializable {
     }
 
     public void setWordId(Integer wordId) {
+
         this.wordId = wordId;
+
     }
 
     public String getWord() {

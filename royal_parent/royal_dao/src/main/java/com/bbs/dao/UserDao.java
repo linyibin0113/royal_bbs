@@ -20,4 +20,12 @@ public interface UserDao {
     //用户禁言与取消禁言
     @Update("update bbs_user_table set talkStatus = !talkStatus where userId=#{userId}")
     void changeTalkStatus(Integer userId);
+    /**
+     * 前台查询账户和密码确认账户是否存在
+     * @param userName
+     * @param userPass
+     * @return
+     */
+    @Select("SELECT * FROM bbs_user_table WHERE userPass=#{userPass} and userName=#{userName}")
+    User findByNameAndPass(@Param("userPass") String userPass, @Param("userName") String userName)throws Exception;
 }

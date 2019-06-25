@@ -6,12 +6,30 @@ import java.io.Serializable;
 //新增板块
 public class ZoneApply implements Serializable {
 
-   private Integer applyZoneId;
+    private Integer applyZoneId;
 
-   private String zoneName;//新增板块名字
-   private String userName;//用户名
-   private String reason;//申请原因
-   private Integer status;//处理状态(未处理-0,已处理-1)
+    private String zoneName;//新增板块名字
+    private String userName;//用户名
+    private String reason;//申请原因
+
+    private Integer status;//处理状态(未处理-0,已处理-1)
+    private String statusStr;
+
+    public String getStatusStr() {
+        if (status != null) {
+            if (status == 0) {
+                statusStr = "未处理";
+            }
+            else  if (status == 1) {
+                    statusStr = "已处理";
+                }
+            }
+
+        return statusStr;
+    }
+    public void setStatusStr(String statusStr) {
+        this.statusStr = statusStr;
+    }
 
     public Integer getApplyZoneId() {
         return applyZoneId;

@@ -34,4 +34,16 @@ public class UserServiceImpl implements UserService{
     public void changeTalkStatus(Integer userId) {
         userDao.changeTalkStatus(userId);
     }
+
+    /**
+     * 查询账户和密码确认账户是否存在
+     * @param userName
+     * @param userPass
+     * @return
+     */
+    @Override
+    public User findByNameAndPass(String userPass,String userName) throws Exception {
+
+        return userDao.findByNameAndPass(userPass,userName);
+}
 }

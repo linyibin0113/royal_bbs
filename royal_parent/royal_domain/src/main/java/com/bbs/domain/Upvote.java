@@ -3,8 +3,6 @@ package com.bbs.domain;
 import java.io.Serializable;
 
 
-
-
 //点赞状态
 public class Upvote implements Serializable {
 
@@ -14,6 +12,23 @@ public class Upvote implements Serializable {
 
     private Integer isUpvote;//点赞状态，0代表未点赞，1代表已点赞（默认）
 
+    private String isUpvoteStr;
+
+    public String getIsUpvoteStr() {
+        if (isUpvote != null) {
+            if (isUpvote == 0) {
+                isUpvoteStr = "未点赞";
+            }
+             else   if (isUpvote == 1) {
+                    isUpvoteStr = "已点赞";
+                }
+            }
+        return isUpvoteStr;
+    }
+
+    public void setIsUpvoteStr(String isUpvoteStr) {
+        this.isUpvoteStr = isUpvoteStr;
+    }
 
     public String getUpvoteUserName() {
         return upvoteUserName;
