@@ -54,8 +54,8 @@
             <!--左侧用户名，头像-->
             <div class="user-info-l l">
                 <div class="user-info-l-t">
-                    <img src="../images/timg.jpg"/>
-                    <div class="username">张无忌</div>
+                    <img src="${sessionScope.user.picUrl}"/>
+                    <div class="username">${sessionScope.user.userName}</div>
                 </div>
                 <ul class="user-info-l-b">
                     <li class="cur"><i class="info-icon"></i>我的资料</li>
@@ -76,7 +76,7 @@
                     <ul class="bd">
                         <li class="clearfix">
                             <div class="info-l"><i class="red">*</i>用户名：</div>
-                            <div class="info-r"><input type="text" class="txt" value="admin" readonly="readonly"/></div>
+                            <div class="info-r"><input type="text" class="txt" value="${sessionScope.user.userName}" readonly="readonly"/></div>
                         </li>
                         <li class="clearfix">
                             <div class="info-l">邮箱地址：</div>

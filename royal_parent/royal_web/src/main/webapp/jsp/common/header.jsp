@@ -15,8 +15,8 @@
             <div class="box">
                 <c:if test="${user!=null}">
                     <a href="javascript:;" id="login" class="to-login" >欢迎：${user.roleStr} ${user.userName}</a>
-                    <a href="${pageContext.request.contextPath}/user/findByid.do">【个人中心】</a>
-                    <a href="${pageContext.request.contextPath}/jsp/register.jsp">【注销】</a>
+                    <a href="${pageContext.request.contextPath}/jsp/userInfo.jsp">【个人中心】</a>
+                    <a href="${pageContext.request.contextPath}/user/exit">【注销】</a>
                 </c:if>
                 <c:if test="${user==null}">
                     <a href="javascript:;" id="login" class="to-login" >游客登录</a>

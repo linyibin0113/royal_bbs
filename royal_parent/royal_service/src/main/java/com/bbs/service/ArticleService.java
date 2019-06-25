@@ -6,13 +6,19 @@ import java.util.List;
 
 public interface ArticleService {
 
-    /***
-     * 查询所有发布的帖子
-     * @param
-     * @return
-     */
-    List<Article> findAll();
+
+
 
     void save(Article article) throws Exception;
+
+
+    //查询所有帖子
+    List<Article> findAll();
+
+    //帖子删除
+    void deleteArticle(Integer articleId);
+
+    //帖子置顶和取消置顶
+    void changeStatus(Integer articleId);
 
 }
