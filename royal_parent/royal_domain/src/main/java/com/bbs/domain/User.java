@@ -21,6 +21,7 @@ public class User implements Serializable {
     private String picUrl;//头像
 
     private Integer role;//1代表普通用户；2代表高级用户，3代表超级管理员
+    private String roleStr;
 
     @DateTimeFormat(pattern = "yyyy-MM-dd HH:mm")
     private Date lastLoginTime;//最后登录时间
@@ -37,6 +38,23 @@ public class User implements Serializable {
 
     private Integer updateStatus;//申请升级审核状态(0-未处理,1-已处理)
     private String updateStatusStr;
+
+    public String getRoleStr() {
+        if (role != null) {
+            if (role == 1) {
+                roleStr = "普通用户";
+            } else if (role == 2) {
+                roleStr = "高级用户";
+            }else if (role == 3) {
+                roleStr = "超级管理员";
+            }
+        }
+        return roleStr;
+    }
+
+    public void setRoleStr(String roleStr) {
+        this.roleStr = roleStr;
+    }
 
     public String getLoginStatusStr() {
         if (loginStatus != null) {
