@@ -2,6 +2,7 @@ package com.bbs.manage.controller;
 
 import com.bbs.domain.User;
 import com.bbs.service.UserService;
+import com.github.pagehelper.PageInfo;
 import org.apache.ibatis.annotations.Param;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
@@ -31,10 +32,12 @@ public class UserController {
 
     //查询所有用户信息
     @RequestMapping("/findByPage")
-    public ModelAndView findAll(){
-        List<User> userList = userService.findAll();
+    public ModelAndView findByPage(@RequestParam(name = "page", required = true, defaultValue = "1") Integer page,
+                                @RequestParam(name = "size", required = true, defaultValue = "5") Integer size){
         ModelAndView mv = new ModelAndView();
-        mv.addObject("userList",userList);
+        List<User> userList = userService.findByPage(page,size);
+        PageInfo pageInfo=new PageInfo(userList);
+        mv.addObject("pageInfo",pageInfo);
         mv.setViewName("UserPage");
         return mv;
     }
@@ -46,5 +49,11 @@ public class UserController {
         return "redirect:findByPage";
     }
 
+    //普通用户升级为高级用户
+    @RequestMapping("/userUpgrade")
+    public String userUpgrade(@RequestParam(name = "id",required = true)Integer userId){
+        userService.userUpgrade(userId);
+        return "redirect:findByPage";
+    }
 
 }

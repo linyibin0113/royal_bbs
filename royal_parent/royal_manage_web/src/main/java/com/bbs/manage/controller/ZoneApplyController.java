@@ -1,7 +1,8 @@
 package com.bbs.manage.controller;
 
-import com.bbs.domain.Report;
-import com.bbs.service.ReportService;
+import com.bbs.domain.Word;
+import com.bbs.domain.ZoneApply;
+import com.bbs.service.ZoneApplyService;
 import com.github.pagehelper.PageInfo;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
@@ -12,35 +13,34 @@ import org.springframework.web.servlet.ModelAndView;
 import java.util.List;
 
 @Controller
-@RequestMapping("/report")
-public class ReportController {
-
+@RequestMapping("/zoneApply")
+public class ZoneApplyController {
     @Autowired
-    private ReportService reportService;
+    private ZoneApplyService zoneApplyService;
 
-    //查询所有的 审批举报信息（相关帖子功能没实现）
+    //查询所有 申请版块 信息
     @RequestMapping("/findByPage")
     public ModelAndView findByPage(@RequestParam(name = "page", required = true, defaultValue = "1") Integer page,
                                    @RequestParam(name = "size", required = true, defaultValue = "5") Integer size){
         ModelAndView mv = new ModelAndView();
-        List<Report> reportList = reportService.findByPage(page,size);
-        PageInfo pageInfo=new PageInfo(reportList);
+        List<ZoneApply> zoneApplyList = zoneApplyService.findByPage(page,size);
+        PageInfo pageInfo=new PageInfo(zoneApplyList);
         mv.addObject("pageInfo",pageInfo);
-        mv.setViewName("ReportPage");
+        mv.setViewName("ZoneApplyPage");
         return mv;
     }
 
-    //举报成功，删除举报和帖子
-    @RequestMapping("/deleteArticle")
-    public String deleteArticle(@RequestParam(name = "id",required = true)Integer reportId){
-        reportService.deleteArticle(reportId);
+    //申请通过(通过后还没增加新的版块)
+    @RequestMapping("/applySuccess")
+    public String applySuccess(Integer applyZoneId){
+        zoneApplyService.applySuccess(applyZoneId);
         return "redirect:findByPage";
     }
 
-    //举报失败，删除举报，保留帖子
-    @RequestMapping("/rejectedArticle")
-    public String rejectedArticle(@RequestParam(name = "id",required = true)Integer reportId){
-        reportService.rejectedArticle(reportId);
+    //申请失败
+    @RequestMapping("/applyFail")
+    public String applyFail(Integer applyZoneId){
+        zoneApplyService.applyFail(applyZoneId);
         return "redirect:findByPage";
     }
 }

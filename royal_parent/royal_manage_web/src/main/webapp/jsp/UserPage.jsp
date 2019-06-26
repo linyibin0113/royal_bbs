@@ -89,7 +89,7 @@
                     </tr>
                     </thead>
                     <tbody>
-                    <c:forEach items="${userList}" var="user">
+                    <c:forEach items="${pageInfo.list}" var="user">
                             <tr>
                                 <td width="15%">
                                         ${user.userName }
@@ -115,12 +115,19 @@
                                 </td>
 
                                 <td width="15%">
-                                    <a href="${pageContext.request.contextPath}/user/   ?id=${user.userId}<%--&pn=${articleMsgs.pageNum}&title=${articleSearch.title}&sendername=${articleSearch.sendername}--%>" role="button" class="btn btn-primary">升级</a>
+
+                                    <c:if test="${user.isupdating==0}">
+                                        <a href="#" role="button" class="btn btn-default">升级</a>
+                                    </c:if>
+                                    <c:if test="${user.isupdating==1}">
+                                        <a href="${pageContext.request.contextPath}/user/userUpgrade?id=${user.userId}&pn=${pageInfo.pageNum}<%--&title=${articleSearch.title}&sendername=${articleSearch.sendername}--%>" role="button" class="btn btn-primary">升级</a>
+                                    </c:if>
+
                                     <c:if test="${user.talkStatus==0}">
-                                        <a href="${pageContext.request.contextPath}/user/changeTalkStatus?id=${user.userId}<%--&pn=${articleMsgs.pageNum}&title=${articleSearch.title}&sendername=${articleSearch.sendername}--%>" role="button" class="btn btn-danger" >禁言</a>
+                                        <a href="${pageContext.request.contextPath}/user/changeTalkStatus?id=${user.userId}&pn=${pageInfo.pageNum}<%--&title=${articleSearch.title}&sendername=${articleSearch.sendername}--%>" role="button" class="btn btn-danger" >禁言</a>
                                     </c:if>
                                     <c:if test="${user.talkStatus==1}">
-                                        <a href="${pageContext.request.contextPath}/user/changeTalkStatus?id=${user.userId}<%--&pn=${articleMsgs.pageNum}&title=${articleSearch.title}&sendername=${articleSearch.sendername}--%>" role="button" class="btn btn-info" >恢复</a>
+                                        <a href="${pageContext.request.contextPath}/user/changeTalkStatus?id=${user.userId}&pn=${pageInfo.pageNum}<%--&title=${articleSearch.title}&sendername=${articleSearch.sendername}--%>" role="button" class="btn btn-info" >恢复</a>
                                     </c:if>
                                 </td>
                             </tr>
@@ -134,7 +141,7 @@
             <div class="row">
                 <!--文字信息-->
                 <div class="col-md-6">
-                    当前第 ${articleMsgs.pageNum} 页.总共 ${articleMsgs.pages} 页.一共 ${articleMsgs.total} 条记录
+                    当前第 ${pageInfo.pageNum} 页.总共 ${pageInfo.pages} 页.一共 ${pageInfo.total} 条记录
                 </div>
 
                 <!--点击分页-->
@@ -142,35 +149,38 @@
                     <nav aria-label="Page navigation">
                         <ul class="pagination">
                             <!--首页-->
-                            <li><a href="#" onclick="searchArticle(1)">首页</a></li>
+                            <li><a href="${pageContext.request.contextPath}/user/findByPage?page=1&size=${pageInfo.pageSize}" onclick="searchArticle(1)">首页</a></li>
                             <!--上一页-->
                             <li>
-                                <c:if test="${articleMsgs.hasPreviousPage}">
-                                        <a href="#" onclick="searchArticle('${articleMsgs.pageNum-1}')" aria-label="Previous">
+                                <c:if test="${pageInfo.hasPreviousPage}">
+                                        <a href="${pageContext.request.contextPath}/user/findByPage?page=${pageInfo.pageNum-1}&size=${pageInfo.pageSize}" aria-label="Previous">
                                             <span aria-hidden="true">«</span>
                                         </a>
                                 </c:if>
                             </li>
 
-                            <c:forEach items="${articleMsgs.navigatepageNums}" var="page_num">
-                                <c:if test="${page_num == articleMsgs.pageNum}">
+                            <%--<c:forEach items="${pageInfo.navigatepageNums}" var="page_num">
+                                <c:if test="${page_num == pageInfo.pageNum}">
                                     <li class="active"><a href="#">${page_num}</a></li>
                                 </c:if>
-                                <c:if test="${page_num != articleMsgs.pageNum}">
+                                <c:if test="${page_num != pageInfo.pageNum}">
                                     <li><a href="#" onclick="searchArticle('${page_num}')">${page_num}</a></li>
                                 </c:if>
+                            </c:forEach>--%>
+                            <c:forEach begin="1" end="${pageInfo.pages}" var="pageNum">
+                                <li><a href="${pageContext.request.contextPath}/user/findByPage?page=${pageNum}&size=${pageInfo.pageSize}">${pageNum}</a></li>
                             </c:forEach>
 
                             <!--下一页-->
                             <li>
-                                <c:if test="${articleMsgs.hasNextPage}">
-                                    <a href="javascript:void(0)" onclick="searchArticle('${articleMsgs.pageNum+1}')"
+                                <c:if test="${pageInfo.hasNextPage}">
+                                    <a href="${pageContext.request.contextPath}/user/findByPage?page=${pageInfo.pageNum+1}&size=${pageInfo.pageSize}" onclick="searchArticle('${pageInfo.pageNum+1}')"
                                        aria-label="Next">
                                         <span aria-hidden="true">»</span>
                                     </a>
                                 </c:if>
                             </li>
-                            <li><a href="javascript:void(0)" onclick="searchArticle('${articleMsgs.pages}')">尾页</a></li>
+                            <li><a href="${pageContext.request.contextPath}/user/findByPage?page=${pageInfo.pages}&size=${pageInfo.pageSize}" onclick="searchArticle('${pageInfo.pages}')">尾页</a></li>
                         </ul>
                     </nav>
                 </div>
