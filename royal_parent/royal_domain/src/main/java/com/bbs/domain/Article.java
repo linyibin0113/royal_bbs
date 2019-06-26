@@ -143,4 +143,23 @@ public class Article implements Serializable {
     public void setIsReport(Integer isReport) {
         this.isReport = isReport;
     }
+
+    @Override
+    public String toString() {
+        return "Article{" +
+                "articleId=" + articleId +
+                ", title='" + title + '\'' +
+                ", content='" + content + '\'' +
+                ", sendTime=" + sendTime +
+                ", sendTimeStr='" + sendTimeStr + '\'' +
+                ", senderName='" + senderName + '\'' +
+                ", isTop=" + isTop +
+                ", isTopStr='" + isTopStr + '\'' +
+                ", replyCount=" + replyCount +
+                ", upvoteCount=" + upvoteCount +
+                ", browseCount=" + browseCount +
+                ", zoneId=" + zoneId +
+                ", isReport=" + isReport +
+                '}';
+    }
 }

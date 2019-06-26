@@ -39,4 +39,10 @@ public class ArticleServiceImpl implements ArticleService {
     public void changeStatus(Integer articleId) {
          articleDao.changeStatus(articleId);
     }
+
+    //查询帖子总数--zzl
+    @Override
+    public Integer findByArticleId() {
+        return articleDao.findByArticleId();
+    }
 }

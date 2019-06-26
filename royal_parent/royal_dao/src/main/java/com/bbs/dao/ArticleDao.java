@@ -9,19 +9,18 @@ import java.util.List;
 
 public interface ArticleDao {
 
-    /*@Select("String sql=select title from bbs_article_table where 1=1;" +
-            "if(username!=null && !\"\".equals(username)) {\n" +
-            "   sql = sql + \" AND username like '%\" + username +\"%'\";\n" +
-            "        }" +
-            "sql=sql+';';")*/
-    @Select("select title from bbs_article_table where title like #{title}")
-
+    //关键字模糊查询--zzl
+    @Select("select * from bbs_article_table where title like #{title}")
      List<Article> findByTitle(@Param("title") String title);
 
 
     //查询所有帖子
     @Select("select * from bbs_article_table")
     List<Article> findAll();
+
+    //查询帖子总数
+    @Select("select count(*) from bbs_article_table ")
+    Integer findByArticleId();
 
     //删除帖子
     @Delete("delete from bbs_article_table where articleId=#{articleId}")

@@ -35,8 +35,8 @@
             <div class="hm-bbs-info-in l" style="margin-left:30px;">
                 <div class="t clearfix"><h2 class="l">王者荣耀</h2></div>
                 <p>
-                    <span>今日帖子<strong>99</strong></span>
-                    <span>全部帖子<strong>250</strong></span>
+                          <span>今日帖子<strong>11</strong></span>
+                          <span>全部帖子<strong>${articlePageInfo.total}</strong></span>
                 </p>
             </div>
             <div class="search-box l">
@@ -75,7 +75,8 @@
             <div class="list-view l">
                 <ul>
 
-                    <c:forEach items="${articleList}" var="article">
+                    <c:forEach items="${articlePageInfo.list}" var="article">
+
                         <li class="clearfix ding">
                             <div class="hm-index-title">
                                 <i class="set-to-top">${article.isTop}</i> <a href="getArticle.do">${article.title}</a>
@@ -83,14 +84,13 @@
                             <div class="hm-index-con">${article.content}</div>
                             <div class="hm-index-info l">
                                 <span class="article-username">${article.senderName}</span>
-                                <span class="post-time">${article.sendTime}</span>
+                                <span class="post-time">${article.sendTimeStr}</span>
                             </div>
                             <div class="hm-index-fun r">
                                 <span class="icon-like"><i></i>${article.upvoteCount}</span>
                                 <span class="icon-talk"><i></i>${article.replyCount}</span>
                             </div>
                         </li>
-
                     </c:forEach>
 
 
