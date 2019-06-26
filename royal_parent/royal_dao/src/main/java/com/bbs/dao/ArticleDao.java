@@ -16,7 +16,7 @@ public interface ArticleDao {
 
     //查询所有帖子
     @Select("select * from bbs_article_table")
-    List<Article> findAll();
+    List<Article> findByPage();
 
     //查询帖子总数
     @Select("select count(*) from bbs_article_table ")
@@ -26,8 +26,12 @@ public interface ArticleDao {
     @Delete("delete from bbs_article_table where articleId=#{articleId}")
     void deleteArticle(Integer articleId);
 
-    ////帖子置顶和取消置顶
+    //帖子置顶和取消置顶
     @Update("update bbs_article_table set isTop = !isTop where articleId=#{articleId}")
     void changeStatus(Integer articleId);
+
+    //根据举报ID删除帖子
+    @Delete("delete from bbs_article_table where articleId=(select articleId from bbs_report_table where reportId=#{reportId})")
+    void deleteByReportId(Integer reportId);
 }
 

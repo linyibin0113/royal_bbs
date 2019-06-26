@@ -2,7 +2,7 @@
 <%@ page contentType="text/html;charset=UTF-8" language="java" %>
 <html>
 <head>
-    <title>举报贴管理页面</title>
+    <title>敏感词汇管理页面</title>
 
 </head>
 <style type="text/css">
@@ -41,49 +41,59 @@
                 <div >
                     <ol class="breadcrumb">
                         <li><a href="#">用户贴管理</a></li>
-                        <li class="active">审批举报</li>
+                        <li class="active">敏感词汇管理</li>
                     </ol>
                 </div>
                 <hr>
+                <div>
+                    <div style="float: left">
+                        <form method="get" id="articleSearchForm">
+                            <table>
+                                <tr>
+                                    <th colspan="5">
+                                        <input type="button" value="新增敏感词" class="form-control btn-primary" onclick="location.href='${pageContext.request.contextPath}/jsp/Word-Add.jsp'">
+                                    </th>
+                                </tr>
+                            </table>
 
+                        </form>
+                    </div>
+                </div>
 
                 <div style="clear:both"></div>
                 <hr>
                 <table class="table table-bordered table-hover">
                     <thead>
                     <tr>
-                        <th>帖子ID</th>
-                        <th>举报内容</th>
-                        <th>举报人</th>
-                        <th>举报时间</th>
+                        <th>序号</th>
+                        <th>敏感词</th>
+                        <th>是否启用</th>
                         <th>操作</th>
                     </tr>
                     </thead>
                     <tbody>
-                    <c:forEach items="${pageInfo.list}" var="report">
+                    <c:forEach items="${pageInfo.list}" var="word" >
                             <tr>
-                                <td width="10%">
-                                        ${report.articleId }
+                                <td width="20%">
+                                        ${word.wordId }
                                 </td>
 
                                 <td width="40%">
-                                        ${report.reportContent}
-                                </td>
-
-                                <td width="10%">
-                                        ${report.reportUserName}
+                                        ${word.word}
                                 </td>
 
                                 <td width="20%">
-                                        ${report.reportTime}
+                                    <c:if test="${word.status==0}">已停用</c:if>
+                                    <c:if test="${word.status==1}">使用中</c:if>
                                 </td>
 
-
                                 <td width="20%">
-                                    <a href="${pageContext.request.contextPath}/report/   ?id=${report.reportId}&pn=${pageInfo.pageNum}<%--&title=${articleSearch.title}&sendername=${articleSearch.sendername}--%>" role="button" class="btn btn-primary">相关帖子</a>
-                                    <a href="${pageContext.request.contextPath}/report/deleteArticle?id=${report.reportId}&pn=${pageInfo.pageNum}<%--&title=${articleSearch.title}&sendername=${articleSearch.sendername}--%>" role="button" class="btn btn-danger" >屏蔽</a>
-                                    <a href="${pageContext.request.contextPath}/report/rejectedArticle?id=${report.reportId}&pn=${pageInfo.pageNum}<%--&title=${articleSearch.title}&sendername=${articleSearch.sendername}--%>" role="button" class="btn btn-info" >驳回</a>
-
+                                    <c:if test="${word.status==0}">
+                                        <a href="${pageContext.request.contextPath}/word/changeStatus?id=${word.wordId}&pn=${pageInfo.pageNum}<%--&title=${articleSearch.title}&sendername=${articleSearch.sendername}--%>" role="button" class="btn btn-danger" >启用</a>
+                                    </c:if>
+                                    <c:if test="${word.status==1}">
+                                        <a href="${pageContext.request.contextPath}/word/changeStatus?id=${word.wordId}&pn=${pageInfo.pageNum}<%--&title=${articleSearch.title}&sendername=${articleSearch.sendername}--%>" role="button" class="btn btn-info" >停用</a>
+                                    </c:if>
                                 </td>
                             </tr>
                         </c:forEach>
@@ -104,11 +114,12 @@
                     <nav aria-label="Page navigation">
                         <ul class="pagination">
                             <!--首页-->
-                            <li><a href="${pageContext.request.contextPath}/report/findByPage?page=1&size=${pageInfo.pageSize}" onclick="searchArticle(1)">首页</a></li>
+                            <li><a href="${pageContext.request.contextPath}/word/findByPage?page=1&size=${pageInfo.pageSize}" onclick="searchArticle(1)">首页</a></li>
                             <!--上一页-->
                             <li>
                                 <c:if test="${pageInfo.hasPreviousPage}">
-                                        <a href="${pageContext.request.contextPath}/report/findByPage?page=${pageInfo.pageNum-1}&size=${pageInfo.pageSize}" onclick="searchArticle('${pageInfo.pageNum-1}')" aria-label="Previous">
+                                        <a href="${pageContext.request.contextPath}/word/findByPage?page=${pageInfo.pageNum-1}&size=${pageInfo.pageSize}" onclick="searchArticle('${pageInfo.pageNum-1}')
+                                                " aria-label="Previous">
                                             <span aria-hidden="true">«</span>
                                         </a>
                                 </c:if>
@@ -123,19 +134,19 @@
                                 </c:if>
                             </c:forEach>--%>
                             <c:forEach begin="1" end="${pageInfo.pages}" var="pageNum">
-                                <li><a href="${pageContext.request.contextPath}/report/findByPage?page=${pageNum}&size=${pageInfo.pageSize}">${pageNum}</a></li>
+                                <li><a href="${pageContext.request.contextPath}/word/findByPage?page=${pageNum}&size=${pageInfo.pageSize}">${pageNum}</a></li>
                             </c:forEach>
 
                             <!--下一页-->
                             <li>
                                 <c:if test="${pageInfo.hasNextPage}">
-                                    <a href="${pageContext.request.contextPath}/report/findByPage?page=${pageInfo.pageNum+1}&size=${pageInfo.pageSize}" onclick="searchArticle('${pageInfo.pageNum+1}')"
+                                    <a href="${pageContext.request.contextPath}/word/findByPage?page=${pageInfo.pageNum+1}&size=${pageInfo.pageSize}" onclick="searchArticle('${pageInfo.pageNum+1}')"
                                        aria-label="Next">
                                         <span aria-hidden="true">»</span>
                                     </a>
                                 </c:if>
                             </li>
-                            <li><a href="${pageContext.request.contextPath}/report/findByPage?page=${pageInfo.pages}&size=${pageInfo.pageSize}" onclick="searchArticle('${pageInfo.pages}')">尾页</a></li>
+                            <li><a href="${pageContext.request.contextPath}/word/findByPage?page=${pageInfo.pages}&size=${pageInfo.pageSize}" onclick="searchArticle('${pageInfo.pages}')">尾页</a></li>
                         </ul>
                     </nav>
                 </div>

@@ -20,7 +20,16 @@ public class Report implements Serializable {
 
     private String reportUserName;//举报人
     private Integer reportStatus;//处理状态
-    private Integer articleId;//文章ID
+    private Integer articleId;//文章ID.
+    private Article article;
+
+    public Article getArticle() {
+        return article;
+    }
+
+    public void setArticle(Article article) {
+        this.article = article;
+    }
 
     public String getReportTimeStr() {
         if (reportTime != null) {

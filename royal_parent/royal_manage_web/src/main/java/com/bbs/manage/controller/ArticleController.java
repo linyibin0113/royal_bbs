@@ -2,6 +2,7 @@ package com.bbs.manage.controller;
 
 import com.bbs.domain.Article;
 import com.bbs.service.ArticleService;
+import com.github.pagehelper.PageInfo;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -19,10 +20,12 @@ public class ArticleController {
 
     //查询所有帖子
     @RequestMapping("/findByPage")
-    public ModelAndView findAll(){
-        List<Article> articleList= articleService.findAll();
+    public ModelAndView findByPage(@RequestParam(name = "page", required = true, defaultValue = "1") Integer page,
+                                @RequestParam(name = "size", required = true, defaultValue = "5") Integer size){
         ModelAndView mv = new ModelAndView();
-        mv.addObject("articleList",articleList);
+        List<Article> articleList= articleService.findByPage(page,size);
+        PageInfo pageInfo=new PageInfo(articleList);
+        mv.addObject("pageInfo",pageInfo);
         mv.setViewName("ArticlePage");
         return mv;
     }

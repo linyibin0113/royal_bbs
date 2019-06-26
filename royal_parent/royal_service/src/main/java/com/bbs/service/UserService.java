@@ -11,7 +11,7 @@ public interface UserService {
     User login(String userName, String userPass);
 
     //查询所有用户信息
-    List<User> findAll();
+    List<User> findByPage(Integer page,Integer size);
 
     //用户禁言与取消禁言
     void changeTalkStatus(Integer userId);
@@ -23,4 +23,7 @@ public interface UserService {
      * @return
      */
     User findByNameAndPass(String userPass,String userName) throws Exception;
+
+    //普通用户升级为高级用户
+    void userUpgrade(Integer userId);
 }

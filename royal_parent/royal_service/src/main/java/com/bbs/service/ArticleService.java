@@ -9,7 +9,7 @@ public interface ArticleService {
     public  List<Article> findByTitle(String title);
 
     //查询所有帖子
-    List<Article> findAll();
+    List<Article> findByPage(Integer page,Integer size);
 
     //帖子删除
     void deleteArticle(Integer articleId);
