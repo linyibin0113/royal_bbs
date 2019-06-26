@@ -5,7 +5,6 @@ import org.apache.ibatis.annotations.Insert;
 import org.apache.ibatis.annotations.Param;
 import org.apache.ibatis.annotations.Select;
 import org.apache.ibatis.annotations.Delete;
-import org.apache.ibatis.annotations.Select;
 import org.apache.ibatis.annotations.Update;
 
 import java.util.List;
@@ -23,7 +22,7 @@ public interface ArticleDao {
 
     //查询所有帖子-ybb
     @Select("select * from bbs_article_table")
-    List<Article> findAll();
+    List<Article> findByPage();
 
     //删除帖子-ybb
     @Delete("delete from bbs_article_table where articleId=#{articleId}")
@@ -33,4 +32,8 @@ public interface ArticleDao {
     @Update("update bbs_article_table set isTop = !isTop where articleId=#{articleId}")
     void changeStatus(Integer articleId);
 
+
+    //根据举报ID删除帖子
+    @Delete("delete from bbs_article_table where articleId=(select articleId from bbs_report_table where reportId=#{reportId})")
+    void deleteByReportId(Integer reportId);
 }

@@ -15,7 +15,7 @@ public interface UserDao {
 
     //查询所有用户信息
     @Select("select * from bbs_user_table")
-    List<User> findAll();
+    List<User> findByPage();
 
     //用户禁言与取消禁言
     @Update("update bbs_user_table set talkStatus = !talkStatus where userId=#{userId}")
@@ -28,6 +28,10 @@ public interface UserDao {
      */
     @Select("SELECT * FROM bbs_user_table WHERE userPass=#{userPass} and userName=#{userName}")
     User findByNameAndPass(@Param("userPass") String userPass, @Param("userName") String userName)throws Exception;
+
+    //普通用户升级为高级用户
+    @Update("update bbs_user_table set updateStatus=1, role=2, isupdating=0 where userId=#{userId}")
+    void userUpgrade(Integer userId);
 
     /***
      * 查询用户ID

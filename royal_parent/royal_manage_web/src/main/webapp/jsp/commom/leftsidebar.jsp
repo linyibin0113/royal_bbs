@@ -7,10 +7,10 @@
                 <span class="glyphicon glyphicon-user" aria-hidden="true">用户管理</span>
             </a>
             <ul class="nav nav-pills nav-stacked">
-                <li role="presentation"><a href="${pageContext.request.contextPath}/user/findByPage" >用户信息</a></li>
+                <li role="presentation"><a href="${pageContext.request.contextPath}/user/findByPage?page=1&size=5" >用户信息</a></li>
             </ul>
             <ul class="nav nav-pills nav-stacked">
-                <li role="presentation"><a href="/zoneApply/findByPage.do" >版块审核</a></li>
+                <li role="presentation"><a href="${pageContext.request.contextPath}/zoneApply/findByPage" >版块审核</a></li>
             </ul>
         </li>
     </ul>
@@ -20,13 +20,13 @@
                 <span class="glyphicon glyphicon-cloud" aria-hidden="true">用户帖管理</span>
             </a>
             <ul class="nav nav-pills nav-stacked">
-                <li role="presentation"><a href="${pageContext.request.contextPath}/article/findByPage" >帖子信息</a></li>
+                <li role="presentation"><a href="${pageContext.request.contextPath}/article/findByPage?page=1&size=5" >帖子信息</a></li>
             </ul>
             <ul class="nav nav-pills nav-stacked">
-                <li role="presentation"><a href="/word/findByPage.do" >敏感词汇管理</a></li>
+                <li role="presentation"><a href="${pageContext.request.contextPath}/word/findByPage?page=1&size=5" >敏感词汇管理</a></li>
             </ul>
             <ul class="nav nav-pills nav-stacked">
-                <li role="presentation"><a href="/report/findByPage.do" >审批举报</a></li>
+                <li role="presentation"><a href="${pageContext.request.contextPath}/report/findByPage?page=1&size=5" >审批举报</a></li>
             </ul>
         </li>
     </ul>

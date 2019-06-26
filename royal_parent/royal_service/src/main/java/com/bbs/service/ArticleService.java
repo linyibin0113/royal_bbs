@@ -16,7 +16,7 @@ public interface ArticleService {
 
 
     //查询所有帖子
-    List<Article> findAll();
+    List<Article> findByPage(Integer page,Integer size);
 
     //帖子删除
     void deleteArticle(Integer articleId);

@@ -2,7 +2,7 @@
 <%@ page contentType="text/html;charset=UTF-8" language="java" %>
 <html>
 <head>
-    <title>帖信息管理页面</title>
+    <title>申请版块管理页面</title>
 
 </head>
 <style type="text/css">
@@ -40,8 +40,8 @@
                 <!-- 路径导航 -->
                 <div >
                     <ol class="breadcrumb">
-                        <li><a href="#">用户帖管理</a></li>
-                        <li class="active">帖子信息</li>
+                        <li><a href="#">版块申请管理</a></li>
+                        <li class="active">版块申请信息</li>
                     </ol>
                 </div>
                 <hr>
@@ -52,7 +52,7 @@
                             <table>
                                 <tr>
                                     <th>
-                                        <label for="title" class="control-label">标题:</label>
+                                        <label for="title" class="control-label">版块名称:</label>
                                     </th>
                                     <th>
                                         <input type="text" id="title" class="form-control"
@@ -60,7 +60,7 @@
                                         <input type="hidden" id="pageNum" name="pn" value="">
                                     </th>
                                     <th>
-                                        <label for="article_sendername" class="control-label">创帖人:</label>
+                                        <label for="article_sendername" class="control-label">申请用户:</label>
                                     </th>
                                     <th>
                                         <input type="text" id="article_sendername" class="form-control"
@@ -80,59 +80,31 @@
                 <table class="table table-bordered table-hover">
                     <thead>
                     <tr>
-                        <th>标题</th>
-                        <th>内容</th>
-                        <th>创帖人</th>
-                        <th>是否置顶</th>
-                        <th>回复数</th>
-                        <th>点赞数</th>
-                        <th>浏览数</th>
-                        <th>所在交流区</th>
+                        <th>版块名称</th>
+                        <th>申请用户</th>
+                        <th>申请理由</th>
                         <th>操作</th>
                     </tr>
                     </thead>
                     <tbody>
-                    <c:forEach items="${pageInfo.list}" var="article">
+                    <c:forEach items="${pageInfo.list}" var="zoneApply">
                             <tr>
-                                <td width="15%">
-                                        ${article.title }
+                                <td width="10%">
+                                        ${zoneApply.zoneName }
                                 </td>
 
-                                <td width="30%" class="line-limit-length">
-                                        ${article.content }
-                                </td>
-                                <td width="5%" class="line-limit-length">
-                                        ${article.senderName}
+                                <td width="10%" class="line-limit-length">
+                                        ${zoneApply.userName }
                                 </td>
 
-                                <td width="5%" class="line-limit-length">
-                                        ${article.isTopStr}
+                                <td width="60%" class="line-limit-length">
+                                        ${zoneApply.reason}
                                 </td>
 
-                                <td width="5%">
-                                        ${article.replyCount}
-                                </td>
 
-                                <td width="5%">
-                                        ${article.upvoteCount}
-                                </td>
-
-                                <td width="5%">
-                                        ${article.browseCount}
-                                </td>
-
-                                <td width="15%">
-                                        ${article.zoneId}
-                                </td>
-
-                                <td width="15%">
-                                    <a href="${pageContext.request.contextPath}/article/deleteArticle?id=${article.articleId}&pn=${pageInfo.pageNum}<%--&title=${articleSearch.title}&sendername=${articleSearch.sendername}--%>" role="button" class="btn btn-primary">屏蔽</a>
-                                    <c:if test="${article.isTop==0}">
-                                        <a href="${pageContext.request.contextPath}/article/changeStatus?id=${article.articleId}&pn=${pageInfo.pageNum}<%--&title=${articleSearch.title}&sendername=${articleSearch.sendername}--%>" role="button" class="btn btn-danger" >置顶</a>
-                                    </c:if>
-                                    <c:if test="${article.isTop==1}">
-                                        <a href="${pageContext.request.contextPath}/article/changeStatus?id=${article.articleId}&pn=${pageInfo.pageNum}<%--&title=${articleSearch.title}&sendername=${articleSearch.sendername}--%>" role="button" class="btn btn-info" >取消</a>
-                                    </c:if>
+                                <td width="20%">
+                                    <a href="${pageContext.request.contextPath}/zoneApply/applySuccess?id=${zoneApply.articleId}&pn=${pageInfo.pageNum}<%--&title=${articleSearch.title}&sendername=${articleSearch.sendername}--%>" role="button" class="btn btn-primary">同意</a>
+                                    <a href="${pageContext.request.contextPath}/zoneApply/applyFail?id=${zoneApply.articleId}&pn=${pageInfo.pageNum}<%--&title=${articleSearch.title}&sendername=${articleSearch.sendername}--%>" role="button" class="btn btn-danger" >驳回</a>
                                 </td>
                             </tr>
                         </c:forEach>
@@ -153,11 +125,11 @@
                     <nav aria-label="Page navigation">
                         <ul class="pagination">
                             <!--首页-->
-                            <li><a href="${pageContext.request.contextPath}/article/findByPage?page=1&size=${pageInfo.pageSize}" onclick="searchArticle(1)">首页</a></li>
+                            <li><a href="${pageContext.request.contextPath}/zoneApply/findByPage?page=1&size=${pageInfo.pageSize}" onclick="searchArticle(1)">首页</a></li>
                             <!--上一页-->
                             <li>
                                 <c:if test="${pageInfo.hasPreviousPage}">
-                                        <a href="${pageContext.request.contextPath}/article/findByPage?page=${pageInfo.pageNum-1}&size=${pageInfo.pageSize}" onclick="searchArticle('${pageInfo.pageNum-1}')" aria-label="Previous">
+                                        <a href="${pageContext.request.contextPath}/zoneApply/findByPage?page=${pageInfo.pageNum-1}&size=${pageInfo.pageSize}" onclick="searchArticle('${pageInfo.pageNum-1}')" aria-label="Previous">
                                             <span aria-hidden="true">«</span>
                                         </a>
                                 </c:if>
@@ -173,19 +145,19 @@
                             </c:forEach>--%>
 
                             <c:forEach begin="1" end="${pageInfo.pages}" var="pageNum">
-                                <li><a href="${pageContext.request.contextPath}/article/findByPage?page=${pageNum}&size=${pageInfo.pageSize}">${pageNum}</a></li>
+                                <li><a href="${pageContext.request.contextPath}/zoneApply/findByPage?page=${pageNum}&size=${pageInfo.pageSize}">${pageNum}</a></li>
                             </c:forEach>
 
                             <!--下一页-->
                             <li>
                                 <c:if test="${pageInfo.hasNextPage}">
-                                    <a href="${pageContext.request.contextPath}/article/findByPage?page=${pageInfo.pageNum+1}&size=${pageInfo.pageSize}" onclick="searchArticle('${pageInfo.pageNum+1}')"
+                                    <a href="${pageContext.request.contextPath}/zoneApply/findByPage?page=${pageInfo.pageNum+1}&size=${pageInfo.pageSize}" onclick="searchArticle('${pageInfo.pageNum+1}')"
                                        aria-label="Next">
                                         <span aria-hidden="true">»</span>
                                     </a>
                                 </c:if>
                             </li>
-                            <li><a href="${pageContext.request.contextPath}/article/findByPage?page=${pageInfo.pages}&size=${pageInfo.pageSize}" onclick="searchArticle('${pageInfo.pages}')">尾页</a></li>
+                            <li><a href="${pageContext.request.contextPath}/zoneApply/findByPage?page=${pageInfo.pages}&size=${pageInfo.pageSize}" onclick="searchArticle('${pageInfo.pages}')">尾页</a></li>
                         </ul>
                     </nav>
                 </div>
