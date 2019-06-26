@@ -34,8 +34,8 @@
                     <li class="dropdown">
                         <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">账号管理 <span class="caret"></span></a>
                         <ul class="dropdown-menu nav nav-pills nav-stacked">
-                            <li><a href="#"><span class="glyphicon glyphicon-user" aria-hidden="true"></span>欢迎您,超級管理員</a></li>
-                            <li><a href="/logout" class="hrms_logout"><span class="glyphicon glyphicon-off" aria-hidden="true"></span> 账号退出</a></li>
+                            <li><a href="#"><span class="glyphicon glyphicon-user" aria-hidden="true"></span>欢迎您,${sessionScope.user.userName}</a></li>
+                            <li><a href="${pageContext.request.contextPath}/user/logout" class="hrms_logout"><span class="glyphicon glyphicon-off" aria-hidden="true"></span> 账号退出</a></li>
                         </ul>
                     </li>
                 </ul><!-- /.nav navbar-nav navbar-right -->
@@ -50,5 +50,6 @@
     });
 
 </script>
+
 </body>
 </html>
