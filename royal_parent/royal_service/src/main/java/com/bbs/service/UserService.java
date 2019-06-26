@@ -23,4 +23,23 @@ public interface UserService {
      * @return
      */
     User findByNameAndPass(String userPass,String userName) throws Exception;
+
+    User findByid(Integer userId);
+
+    /***
+     * 修改邮箱  上传照片  lwm
+     * @param userId
+     * @param picUrl
+     * @param email
+     */
+    void update(Integer userId, String picUrl, String email);
+
+    /***
+     * 修改密码  lwm
+     * @param userId
+     * @param userPass
+     */
+    void updatePassword(Integer userId, String userPass);
+
+    List<User> findLoginStatus(Integer findLoginStatus);
 }

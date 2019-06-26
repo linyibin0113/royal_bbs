@@ -17,7 +17,14 @@ public class ArticleController {
     @Autowired
     private ArticleService articleService;
 
-
+    /**
+     * 发帖功能 -lwm
+     * @param body
+     * @param title
+     * @param content
+     * @return
+     * @throws Exception
+     */
     @RequestMapping("/save.do")
     public ModelAndView save(@RequestBody String body, String title, String content) throws Exception {
         ModelAndView modelAndView = new ModelAndView();
@@ -25,7 +32,7 @@ public class ArticleController {
         article.setContent(content);
         article.setTitle(title);
         articleService.save(article);
-        modelAndView.setViewName("ArticleUpdate");
+        modelAndView.setViewName("getArticle");
         return modelAndView;
     }
 

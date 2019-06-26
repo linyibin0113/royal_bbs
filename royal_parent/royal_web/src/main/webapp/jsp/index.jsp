@@ -170,14 +170,16 @@
                         <a href="javascript:;">在线用户(2)</a>
                     </h3>
                     <ul class="b clearfix">
+                        <c:forEach items="${list}" var="user">
                         <li>
                             <div><img src="images/default.png" height="55"/> </div>
-                            <p>Mr.King</p>
+                            <p>${user.userName}</p>
                         </li>
                         <li>
                             <div><img src="images/default.png" height="55"/></div>
-                            <p>疯子</p>
+                            <p>${user.userName}</p>
                         </li>
+                        </c:forEach>
                     </ul>
                 </div>
             </div>
@@ -201,7 +203,7 @@
 </div>
 
 <!-- 发帖弹出框 -->
-<form action="article/save.do" method="post">
+<form action="${pageContext.request.contextPath}/article/save.do" method="post">
     <div class="pop-box ft-box">
         <div class="mask"></div>
         <div class="win">

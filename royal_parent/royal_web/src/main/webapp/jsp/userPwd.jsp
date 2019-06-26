@@ -52,8 +52,8 @@
             <div class="user-info-t" style="height:20px;"></div>
             <div class="user-info-l l">
                 <div class="user-info-l-t">
-                    <img src="images/default.png" alt=""/>
-                    <div class="username">张无忌</div>
+                    <img src="${pageContext.request.contextPath}${sessionScope.user.picUrl}" alt=""/>
+                    <div class="username">${sessionScope.user.userName}</div>
                 </div>
                 <ul class="user-info-l-b">
                     <li><i class="info-icon"></i>我的资料</li>
@@ -64,10 +64,10 @@
 
             <div class="user-info-r r">
                 <ul class="clearfix hd">
-                    <li><a href="getUser.do?method=userInfo">个人信息</a></li>
-                    <li class="cur"><a href="getUser.do?method=userPwd">修改密码</a></li>
+                    <li><a href="userInfo.jsp">个人信息</a></li>
+                    <li class="cur"><a href="userPwd.jsp">修改密码</a></li>
                 </ul>
-                <form action="#" method="post">
+                <form action="${pageContext.request.contextPath}/user/updatePassword.do?id=5" method="post">
                   <ul class="bd">
                     <li class="clearfix">
                         <div class="info-l"><i class="red">*</i>旧密码：</div>

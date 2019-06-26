@@ -7,8 +7,11 @@ import java.util.List;
 public interface ArticleService {
 
 
-
-
+    /***
+     * 发帖
+     * @param article
+     * @throws Exception
+     */
     void save(Article article) throws Exception;
 
 

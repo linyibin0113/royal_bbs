@@ -54,7 +54,7 @@
             <!--左侧用户名，头像-->
             <div class="user-info-l l">
                 <div class="user-info-l-t">
-                    <img src="${sessionScope.user.picUrl}"/>
+                    <img src="${pageContext.request.contextPath}${sessionScope.user.picUrl}"/>
                     <div class="username">${sessionScope.user.userName}</div>
                 </div>
                 <ul class="user-info-l-b">
@@ -67,12 +67,12 @@
             <!--右侧用户信息-->
             <div class="user-info-r r">
                 <ul class="clearfix hd">
-                    <li class="cur"><a href="getUser.do?method=userInfo">个人信息</a></li>
-                    <li><a href="getUser.do?method=userPwd">修改密码</a></li>
+                    <li class="cur"><a href="${pageContext.request.contextPath}/jsp/userInfo.jsp">个人信息</a></li>
+                    <li><a href="${pageContext.request.contextPath}/jsp/userPwd.jsp">修改密码</a></li>
                 </ul>
 
 
-                <form action="${pageContext.request.contextPath}/user/updateEmail.do?id=${user.userId}" method="post" enctype="multipart/form-data">
+                <form action="${pageContext.request.contextPath}/user/updateEmail.do?id=${sessionScope.user.userId}" method="post" <%--enctype="multipart/form-data"--%> >
                     <ul class="bd">
                         <li class="clearfix">
                             <div class="info-l"><i class="red">*</i>用户名：</div>
@@ -80,7 +80,7 @@
                         </li>
                         <li class="clearfix">
                             <div class="info-l">邮箱地址：</div>
-                            <div class="info-r"><input type="text" name="email" class="txt" value=""/></div>
+                            <div class="info-r"><input type="text" name="email" class="txt" /></div>
                         </li>
                         <li class="clearfix">
                             <div class="info-l">上传头像：</div>

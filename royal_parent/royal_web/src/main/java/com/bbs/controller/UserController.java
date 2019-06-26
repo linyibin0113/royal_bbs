@@ -4,11 +4,15 @@ import com.bbs.domain.User;
 import com.bbs.service.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
+import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.servlet.ModelAndView;
+import sun.security.util.Password;
 
 import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpServletResponse;
+import java.util.List;
 
 @Controller
 @RequestMapping("/user")
@@ -17,24 +21,25 @@ public class UserController {
     private UserService userService;
 
     @RequestMapping("/findByNameAndPass")
-    public ModelAndView findByNameAndPass (@RequestParam(required = true,name = "userName") String userName,
-                                           @RequestParam(required = true,name = "userPass") String userPass,HttpServletRequest request) throws Exception {
+    public ModelAndView findByNameAndPass(@RequestParam(required = true, name = "userName") String userName,
+                                          @RequestParam(required = true, name = "userPass") String userPass, HttpServletRequest request) throws Exception {
         ModelAndView mv = new ModelAndView();
-        User user=userService.findByNameAndPass(userPass,userName);
-        request.getSession().setAttribute("user",user);
-        if(user!=null){
+        User user = userService.findByNameAndPass(userPass, userName);
+        request.getSession().setAttribute("user", user);
+        if (user != null) {
             //不为空登陆到主页
-            mv.addObject("user",user);
+            mv.addObject("user", user);
             mv.setViewName("index");
             return mv;
-        }else {
+        } else {
             //不为空给跳转到失败页面
             mv.setViewName("user-fail");
         }
         return mv;
     }
+
     @RequestMapping("/exit")
-    public ModelAndView exit (HttpServletRequest request){
+    public ModelAndView exit(HttpServletRequest request) {
         //1.销毁session
         request.getSession().invalidate();
         //2.跳转到主页
@@ -44,7 +49,7 @@ public class UserController {
     }
 
     /***
-     * 查询用户id
+     * 查询用户id lwm
      * @param userId
      * @return
      */
@@ -57,12 +62,47 @@ public class UserController {
         return modelAndView;
     }
 
+    /***
+     * 修改邮箱 上传照片 lwm
+     * @param userId
+     * @param picUrl
+     * @param email
+     * @return
+     */
     @RequestMapping("/updateEmail.do")
-    public String updateEmail(@RequestParam(name = "id") Integer userId, String picUrl,String email) {
-        ModelAndView modelAndView = new ModelAndView();
-        userService.update(userId,picUrl,email);
-        modelAndView.addObject(email,picUrl);
+    public String updateEmail(@RequestParam(name = "id") Integer userId,
+                              @RequestParam(name = "email", required = false) String email,
+                              @RequestParam(name = "picUrl", required = false) String picUrl
+    ) {
+        userService.update(userId, picUrl, email);
+
 
         return "redirect:findByid.do";
+    }
+
+    /***
+     * 修改密码 lwm
+     * @param userId
+     * @param userPass
+     * @param
+     * @return
+     */
+    @RequestMapping("/updatePassword.do")
+    public String updatePassword(@RequestParam(name = "id") Integer userId,
+                                 @RequestParam(name = "newPassword")
+                                 String userPass,
+                                 HttpServletRequest request) {
+
+        userService.updatePassword(userId, userPass);
+        return "redirect:findByid.do";
+    }
+@RequestMapping("/findLoginStatus.do")
+    public ModelAndView findLoginStatus(Integer findLoginStatus, HttpServletResponse response){
+        ModelAndView modelAndView = new ModelAndView();
+
+        List<User> list = userService.findLoginStatus(findLoginStatus);
+        modelAndView.addObject("list",list);
+        modelAndView.setViewName("index");
+        return modelAndView;
     }
 }

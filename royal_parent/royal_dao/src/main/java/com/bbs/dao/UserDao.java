@@ -28,4 +28,32 @@ public interface UserDao {
      */
     @Select("SELECT * FROM bbs_user_table WHERE userPass=#{userPass} and userName=#{userName}")
     User findByNameAndPass(@Param("userPass") String userPass, @Param("userName") String userName)throws Exception;
+
+    /***
+     * 查询用户ID
+     * @param userId
+     * @return
+     */
+    @Select("select * from bbs_user_table where userId=#{userId}")
+   User findByid(Integer userId);
+
+    /***
+     * 修改邮箱  上传照片  lwm
+     * @param userId
+     * @param picUrl
+     * @param email
+     */
+    @Update("update  bbs_user_table set picUrl=#{picUrl},email=#{email} where userId=#{userId}")
+    void update(@Param("userId") Integer userId,@Param("picUrl") String picUrl,@Param("email") String email);
+
+    /***
+     * 修改密码  lwm
+     * @param userId
+     * @param userPass
+     */
+    @Update("update bbs_user_table set userPass=#{userPass} where userId=#{userId}")
+    void updatePassword(@Param("userId") Integer userId,@Param("userPass") String userPass);
+
+    @Select("select * from bbs_user_table")
+    List<User> findLoginStatus(Integer findLoginStatus);
 }
