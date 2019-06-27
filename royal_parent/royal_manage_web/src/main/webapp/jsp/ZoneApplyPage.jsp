@@ -48,7 +48,7 @@
                 <!-- Table -->
                 <div>
                     <div style="float: left">
-                        <form method="get" id="articleSearchForm">
+                        <form method="get" id="articleSearchForm" action="${pageContext.request.contextPath}/zoneApply/findZoneNameAndUserName">
                             <table>
                                 <tr>
                                     <th>

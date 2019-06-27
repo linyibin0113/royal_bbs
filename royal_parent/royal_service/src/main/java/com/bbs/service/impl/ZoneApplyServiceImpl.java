@@ -37,4 +37,10 @@ public class ZoneApplyServiceImpl implements ZoneApplyService {
         zoneApplyDao.applyFail(applyZoneId);
         zoneApplyDao.deleteApply(applyZoneId);
     }
+    //版块查询
+    @Override
+    public List<ZoneApply> findZoneNameAndUserName(Integer page, Integer size, String zoneName, String userName) {
+        PageHelper.startPage(page,size);
+        return zoneApplyDao.findZoneNameAndUserName(zoneName, userName);
+    }
 }

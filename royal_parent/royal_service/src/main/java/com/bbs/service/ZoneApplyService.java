@@ -13,4 +13,6 @@ public interface ZoneApplyService {
 
     //申请失败
     void applyFail(Integer applyZoneId);
+    //版块查询
+    List<ZoneApply> findZoneNameAndUserName(Integer page, Integer size, String zoneName, String userName);
 }

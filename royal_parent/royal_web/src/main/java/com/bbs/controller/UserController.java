@@ -1,13 +1,12 @@
 package com.bbs.controller;
 
-import com.bbs.domain.ResultInfo;
 import com.bbs.domain.User;
 import com.bbs.service.UserService;
-import com.fasterxml.jackson.databind.ObjectMapper;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.servlet.ModelAndView;
 
 import javax.servlet.http.HttpServletRequest;
@@ -29,28 +28,21 @@ public class UserController {
      * @throws Exception
      */
     @RequestMapping("/findByNameAndPass")
-    public  void findByNameAndPass(@RequestParam(required = true, name = "userName") String userName,
-                                   @RequestParam(required = true, name = "userPass") String userPass,
-                                   HttpServletRequest request,
-                                   HttpServletResponse response) throws Exception {
+    public @ResponseBody boolean findByNameAndPass(@RequestParam(required = true, name = "userName") String userName,
+                           @RequestParam(required = true, name = "userPass") String userPass,
+                           HttpServletRequest request,
+                           HttpServletResponse response) throws Exception {
         User user = userService.findByNameAndPass(userPass, userName);
         request.getSession().setAttribute("user", user);
-        ResultInfo info =new ResultInfo();
+        boolean flag =false;
         //判断用户是否为null
         if(user!=null){
             //登录成功
             request.getSession().setAttribute("user",user);
-            info.setFlag(true);
-        }else{
-            //登录失败
-            info.setFlag(false);
-            info.setErrorMsg("账号或者密码错误");
+           return flag =true;
         }
-        //响应数据,将info序列化为json对象
-        ObjectMapper mapper = new ObjectMapper();
-        response.setContentType("application/json;charset=utf-8");
-        String s = mapper.writeValueAsString(info);
-        response.getWriter().write(s);
+        //登录失败
+       return flag;
     }
 
     /**
@@ -69,4 +61,26 @@ public class UserController {
         mv.setViewName("index");
         return mv;
     }
+
+
+    /**
+     * 注册功能
+     * @param
+     * @param username
+     * @param userPass
+     * @param email
+     * @return
+     * @throws Exception
+     */
+    @RequestMapping("/register")
+    public @ResponseBody boolean register(
+            @RequestParam(name = "userName")String username,
+            @RequestParam(name = "userPass")String userPass,
+            @RequestParam(name = "email")String email,
+            HttpServletRequest request,HttpServletResponse response) throws Exception{
+
+       return userService.regist(username,userPass,email);
+
+    }
+
 }

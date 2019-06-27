@@ -43,4 +43,17 @@ public class ZoneApplyController {
         zoneApplyService.applyFail(applyZoneId);
         return "redirect:findByPage";
     }
+    //版块查询
+    @RequestMapping("/findZoneNameAndUserName")
+    public ModelAndView findZoneNameAndUserName(@RequestParam(name = "page", required = true, defaultValue = "1") Integer page,
+                                                @RequestParam(name = "size", required = true, defaultValue = "5") Integer size,
+                                                @RequestParam(name = "zoneName",required = true) String zoneName,
+                                                @RequestParam(value = "userName",required = true) String userName) throws Exception {
+        ModelAndView mv = new ModelAndView();
+        List<ZoneApply> zone = zoneApplyService.findZoneNameAndUserName(page, size, zoneName, userName);
+        PageInfo pageInfo = new PageInfo(zone);
+        mv.addObject("pageInfo", pageInfo);
+        mv.setViewName("ZoneApplyPage");
+        return mv;
+    }
 }
