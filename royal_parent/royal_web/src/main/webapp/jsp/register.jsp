@@ -16,7 +16,7 @@
 
     function checkUsername() {
         //定义正则
-        var reg_username = /^\w{5,8}$/;
+        var reg_username = /^[a-zA-Z][a-zA-Z0-9_]{4,15}$/;
         //获取用户名的值
         var username = $("#userName1").val();
         //判断给出提示
@@ -34,7 +34,7 @@
 
     function checkPassword() {
         //定义正则
-        var reg_userPass = /^\w{8,20}$/;;
+        var reg_userPass = /^[a-zA-Z]\w{5,10}$/;
         //获取email的值
         var userPass = $("#userPass1").val();
         //判断给出提示
@@ -77,10 +77,10 @@
                     //回调函数
                     //只有在响应成功的时候会触发
                     //data 就是服务器返回的json数据
-                    if(data.flag){
+                    if(data){
                         location.href="${pageContext.request.contextPath}/jsp/success.jsp";
                     }else {
-                        alert(data.errorMsg);
+                        alert("注册失败!用户名已存在");
                     }
                 })
             }
