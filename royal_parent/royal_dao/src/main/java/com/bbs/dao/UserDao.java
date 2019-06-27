@@ -58,6 +58,11 @@ public interface UserDao {
     @Update("update bbs_user_table set userPass=#{userPass} where userId=#{userId}")
     void updatePassword(@Param("userId") Integer userId,@Param("userPass") String userPass);
 
+    /***
+     * 显示在线用户功能 lwm
+     * @param findLoginStatus
+     * @return
+     */
     @Select("select * from bbs_user_table")
     List<User> findLoginStatus(Integer findLoginStatus);
 }

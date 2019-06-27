@@ -16,7 +16,73 @@
     </style>
 </head>
 <body>
+<script>
+/*    function updateEmail() {
+        //定义正则
+        var updateEmail =
+        //获取oldPassword的值
+        var email = $("#email").val();
+        //判断给出提示
+        var flag = (updateEmail==email);
 
+        if (flag){
+            //oldPassword合法
+            $("#newEmail").css("border","2px solid red");
+            alert(flag);
+        }else {
+            //$("#newEmail").css("border","2px solid green");
+            //oldPassword非法，加一个红色边框
+            var res =  '/^\\w+([-+.]\\w+)*@\\w+([-.]\\w+)*\\.\\w+([-.]\\w+)*$/';
+
+            //判断给出提示
+            var flag = res.test(email);
+
+            if (flag){
+                //newPassword合法
+                $("#newEmail").css("border","2px solid green");
+            }else {
+                //newPassword非法，加一个红色边框
+                $("#newEmail").css("border","2px solid red");
+            }
+            return flag;
+        }
+        return flag;
+    }*/
+function checkEmail() {
+    //定义正则
+    var reg_email = /^\w+@\w+\.\w+$/;
+    //获取email的值
+    var email = $("#newEmail").val();
+    //判断给出提示
+    var flag = reg_email.test(email);
+    if (flag){
+        //email合法
+        $("#newEmail").css("border","2px solid green");
+    }else {
+        //email非法，加一个红色边框
+        $("#newEmail").css("border","2px solid red");
+    }
+    return flag;
+}
+$(function () {
+    //当表单提交时，调用所有校验方法
+    $("#registerForm2").submit(function () {
+        //如果这个方法没有返回值，或者返回true，则表单提交，如果返回false，则表单不提交
+        if (checkEmail()){
+            //只有当表单全部校验通过的时候，会执行if代码块
+            $.post("${pageContext.request.contextPath}/user/updateEmail.do?id=${sessionScope.user.userId}",$(this).serialize(),function (data) {
+                //回调函数
+                //只有在响应成功的时候会触发
+                //data 就是服务器返回的json数据
+                $("#updateEmail1").text("修改成功");
+            })
+        }
+        //返回false才能阻止表单提交
+        return false;
+    })
+    $("#newEmail").blur(checkEmail);
+})
+</script>
 
 <!-- 头部 -->
 <jsp:include page="common/header.jsp" />
@@ -72,7 +138,7 @@
                 </ul>
 
 
-                <form action="${pageContext.request.contextPath}/user/updateEmail.do?id=${sessionScope.user.userId}" method="post" <%--enctype="multipart/form-data"--%> >
+                <form action="<%--${pageContext.request.contextPath}/user/updateEmail.do?id=${sessionScope.user.userId}--%>" method="post" id="registerForm2" <%--enctype="multipart/form-data"--%> >
                     <ul class="bd">
                         <li class="clearfix">
                             <div class="info-l"><i class="red">*</i>用户名：</div>
@@ -80,17 +146,17 @@
                         </li>
                         <li class="clearfix">
                             <div class="info-l">邮箱地址：</div>
-                            <div class="info-r"><input type="text" name="email" class="txt" /></div>
+                            <div class="info-r"><input id="newEmail" type="text" name="email" class="txt" /></div>
                         </li>
                         <li class="clearfix">
                             <div class="info-l">上传头像：</div>
-                            <div class="info-r"><input type="file" name="picUrl" class="file-btn"/></div>
+                            <div class="info-r"><input type="file" name="picUrl" class="<%--file-btn--%>"/></div>
                         </li>
                         <li class="clearfix">
                             <div class="info-l"></div>
                             <div class="info-r">
                                 <input type="submit" class="btn" value="保存"/>
-                                <span style="color:red;"></span>
+                                <span id="updateEmail1" style="color:red;"></span>
                             </div>
                         </li>
                     </ul>

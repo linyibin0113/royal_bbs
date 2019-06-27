@@ -23,5 +23,6 @@ public interface ArticleService {
 
     //帖子置顶和取消置顶
     void changeStatus(Integer articleId);
-
+    //查询所有发布的帖子
+    List<Article> findAll();
 }

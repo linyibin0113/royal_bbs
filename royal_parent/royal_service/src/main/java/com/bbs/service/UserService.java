@@ -41,6 +41,11 @@ public interface UserService {
      */
     void updatePassword(Integer userId, String userPass);
 
+    /***
+     * 显示在线用户功能 lwm
+     * @param findLoginStatus
+     * @return
+     */
     List<User> findLoginStatus(Integer findLoginStatus);
 
     //普通用户升级为高级用户

@@ -3,6 +3,7 @@ package com.bbs.service.impl;
 import com.bbs.dao.UserDao;
 import com.bbs.domain.User;
 import com.bbs.service.UserService;
+import com.github.pagehelper.PageHelper;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
@@ -24,8 +25,9 @@ public class UserServiceImpl implements UserService {
 
     //查询所有用户信息
     @Override
-    public List<User> findAll() {
-        return userDao.findAll();
+    public List<User> findByPage(Integer page,Integer size) {
+        PageHelper.startPage(page,size);
+        return userDao.findByPage();
     }
 
     //用户禁言与取消禁言
@@ -44,7 +46,14 @@ public class UserServiceImpl implements UserService {
     public User findByNameAndPass(String userPass,String userName) throws Exception {
 
         return userDao.findByNameAndPass(userPass,userName);
-}
+    }
+
+    //普通用户升级为高级用户
+    @Override
+    public void userUpgrade(Integer userId) {
+        userDao.userUpgrade(userId);
+    }
+
 
     @Override
     public User findByid(Integer userId) {
@@ -72,6 +81,11 @@ public class UserServiceImpl implements UserService {
         userDao.updatePassword(userId,userPass);
     }
 
+    /***
+     * 显示在线用户功能 lwm
+     * @param findLoginStatus
+     * @return
+     */
     @Override
     public List<User> findLoginStatus( Integer findLoginStatus) {
         return userDao.findLoginStatus(findLoginStatus);

@@ -3,6 +3,7 @@ package com.bbs.controller;
 import com.bbs.domain.ResultInfo;
 import com.bbs.domain.User;
 import com.bbs.service.UserService;
+import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
@@ -12,6 +13,7 @@ import org.springframework.web.servlet.ModelAndView;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+import java.io.IOException;
 import java.util.List;
 
 @Controller
@@ -23,6 +25,7 @@ public class UserController {
     /**
      * 前台登录功能
      * --lyb
+     *
      * @param userName
      * @param userPass
      * @param request
@@ -30,19 +33,19 @@ public class UserController {
      * @throws Exception
      */
     @RequestMapping("/findByNameAndPass")
-    public  void findByNameAndPass(@RequestParam(required = true, name = "userName") String userName,
-                                   @RequestParam(required = true, name = "userPass") String userPass,
-                                   HttpServletRequest request,
-                                   HttpServletResponse response) throws Exception {
+    public void findByNameAndPass(@RequestParam(required = true, name = "userName") String userName,
+                                  @RequestParam(required = true, name = "userPass") String userPass,
+                                  HttpServletRequest request,
+                                  HttpServletResponse response) throws Exception {
         User user = userService.findByNameAndPass(userPass, userName);
         request.getSession().setAttribute("user", user);
-        ResultInfo info =new ResultInfo();
+        ResultInfo info = new ResultInfo();
         //判断用户是否为null
-        if(user!=null){
+        if (user != null) {
             //登录成功
-            request.getSession().setAttribute("user",user);
+            request.getSession().setAttribute("user", user);
             info.setFlag(true);
-        }else{
+        } else {
             //登录失败
             info.setFlag(false);
             info.setErrorMsg("账号或者密码错误");
@@ -96,7 +99,8 @@ public class UserController {
     public String updateEmail(@RequestParam(name = "id") Integer userId,
                               @RequestParam(name = "email", required = false) String email,
                               @RequestParam(name = "picUrl", required = false) String picUrl
-    ) {
+    )
+    {
         userService.update(userId, picUrl, email);
 
 
@@ -111,20 +115,28 @@ public class UserController {
      * @return
      */
     @RequestMapping("/updatePassword.do")
-    public String updatePassword(@RequestParam(name = "id") Integer userId,
-                                 @RequestParam(name = "newPassword")
-                                 String userPass,
-                                 HttpServletRequest request) {
+    public void updatePassword(@RequestParam(name = "id") Integer userId,
+                               @RequestParam(name = "newPassword")
+                                       String userPass,
+                               HttpServletRequest request,
+                               HttpServletResponse response) throws IOException {
 
         userService.updatePassword(userId, userPass);
-        return "redirect:findByid.do";
+
     }
-@RequestMapping("/findLoginStatus.do")
-    public ModelAndView findLoginStatus(Integer findLoginStatus, HttpServletResponse response){
+
+    /***
+     * 显示在线用户功能 lwm
+     * @param findLoginStatus
+     * @return
+     */
+    @RequestMapping("/findLoginStatus.do")
+    public ModelAndView findLoginStatus(Integer findLoginStatus) {
+
         ModelAndView modelAndView = new ModelAndView();
 
         List<User> list = userService.findLoginStatus(findLoginStatus);
-        modelAndView.addObject("list",list);
+        modelAndView.addObject("list", list);
         modelAndView.setViewName("index");
         return modelAndView;
     }

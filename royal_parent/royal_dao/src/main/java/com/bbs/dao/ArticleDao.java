@@ -36,4 +36,7 @@ public interface ArticleDao {
     //根据举报ID删除帖子
     @Delete("delete from bbs_article_table where articleId=(select articleId from bbs_report_table where reportId=#{reportId})")
     void deleteByReportId(Integer reportId);
+ //查询所有发布的帖子
+    @Select("select * from bbs_article_table")
+    List<Article> findAll();
 }
