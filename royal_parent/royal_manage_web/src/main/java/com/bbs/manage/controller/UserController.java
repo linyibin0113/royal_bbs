@@ -15,6 +15,7 @@ import org.springframework.web.servlet.ModelAndView;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import java.io.IOException;
+import javax.servlet.http.HttpServletRequest;
 import java.util.List;
 
 @Controller
@@ -71,6 +72,7 @@ public class UserController {
         mv.setViewName("login");
         return mv;
     }
+
     //查询所有用户信息
     @RequestMapping("/findByPage")
     public ModelAndView findByPage(@RequestParam(name = "page", required = true, defaultValue = "1") Integer page,
@@ -88,6 +90,19 @@ public class UserController {
     public String changeTalkStatus(@RequestParam(name = "id",required = true)Integer userId){
         userService.changeTalkStatus(userId);
         return "redirect:findByPage";
+    }
+    //根据用户名、用户组查询用户信息
+    @RequestMapping("/findByNameUser")
+    public ModelAndView findByNameUser(@RequestParam(name = "page", required = true, defaultValue = "1") Integer page,
+                                       @RequestParam(name = "size", required = true, defaultValue = "5") Integer size,
+                                       @RequestParam(name = "userName",required = true) String userName,
+                                       @RequestParam(value = "role",required = true) Integer role) throws Exception{
+        ModelAndView mv = new ModelAndView();
+        List<User> user =userService.findByNameUser(page,size,userName,role);
+        PageInfo pageInfo = new PageInfo(user);
+        mv.addObject("pageInfo", pageInfo);
+        mv.setViewName("UserPage");
+        return mv;
     }
 
     //普通用户升级为高级用户

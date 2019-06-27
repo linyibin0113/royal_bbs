@@ -45,8 +45,25 @@ public class UserServiceImpl implements UserService{
      */
     @Override
     public User findByNameAndPass(String userPass,String userName) throws Exception {
+
         return userDao.findByNameAndPass(userPass,userName);
+}
+
+
+
+    /**
+     * 根据用户名、用户组查询用户信息
+     * @param userName
+     * @param role
+     * @return
+     * @throws Exception
+     */
+    @Override
+    public List<User> findByNameUser(Integer page, Integer size, String userName, Integer role) throws Exception {
+        PageHelper.startPage(page,size);
+        return userDao.findByNameUser(userName,role);
     }
+
 
     //普通用户升级为高级用户
     @Override

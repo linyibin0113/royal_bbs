@@ -8,6 +8,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
+
 import java.util.List;
 
 @Service
@@ -33,6 +34,16 @@ public class ArticleServiceImpl implements ArticleService {
     //帖子置顶和取消置顶
     @Override
     public void changeStatus(Integer articleId) {
-         articleDao.changeStatus(articleId);
+        articleDao.changeStatus(articleId);
+
+    }
+
+
+    @Override
+    public List<Article> findArticle(Integer page,Integer size,String title, String senderName) throws Exception {
+
+        PageHelper.startPage(page,size);
+        return articleDao.findArticle(title, senderName);
+
     }
 }

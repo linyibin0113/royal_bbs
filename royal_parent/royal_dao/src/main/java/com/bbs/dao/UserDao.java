@@ -29,7 +29,13 @@ public interface UserDao {
     @Select("SELECT * FROM bbs_user_table WHERE userPass=#{userPass} and userName=#{userName}")
     User findByNameAndPass(@Param("userPass") String userPass, @Param("userName") String userName)throws Exception;
 
+    //根据用户名、用户组查询用户信息
+    @Select("select * from bbs_user_table where userName=#{userName} and role=#{role}")
+    List<User> findByNameUser(@Param("userName")String userName, @Param("role")Integer role)throws Exception;
+
     //普通用户升级为高级用户
     @Update("update bbs_user_table set updateStatus=1, role=2, isupdating=0 where userId=#{userId}")
     void userUpgrade(Integer userId);
+
+
 }

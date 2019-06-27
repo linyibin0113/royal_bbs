@@ -2,6 +2,7 @@ package com.bbs.dao;
 
 import com.bbs.domain.ZoneApply;
 import org.apache.ibatis.annotations.Delete;
+import org.apache.ibatis.annotations.Param;
 import org.apache.ibatis.annotations.Select;
 import org.apache.ibatis.annotations.Update;
 
@@ -24,4 +25,7 @@ public interface ZoneApplyDao {
     //申请成功或失败都要删除申请
     @Delete("delete from bbs_zoneapply_table where applyZoneId=#{applyZoneId}")
     void deleteApply(Integer applyZoneId);
+    //版块查询
+    @Select("select * from bbs_zoneApply_table where zoneName = #{zoneName} and userName = #{userName}")
+    List<ZoneApply> findZoneNameAndUserName(@Param("zoneName") String zoneName, @Param("userName") String userName);
 }
