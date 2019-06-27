@@ -48,6 +48,16 @@ public interface UserService {
      */
     List<User> findLoginStatus(Integer findLoginStatus);
 
+    //根据用户名、用户组查询用户信息
+    List<User> findByNameUser(Integer page,Integer size,String userName, Integer role) throws Exception;
+
     //普通用户升级为高级用户
     void userUpgrade(Integer userId);
+    /**
+     * 根据姓名查询用户是否存在
+     * --lyb
+     * @param username
+     * @return
+     */
+    boolean regist(String username,String userPass,String email) throws Exception;
 }

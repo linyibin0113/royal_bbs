@@ -1,6 +1,5 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c"%>
-
 <html>
 <head>
     <meta charset="UTF-8"/>
@@ -50,7 +49,7 @@
                 <p>
                           <span>今日帖子<strong id="timepost"></strong></span>
                          <%-- <span>全部帖子<strong>${articlePageInfo.total}</strong></span>--%>
-                          <span>全部帖子<strong>${articlePageInfo.total}</strong></span>
+                          <span>全部帖子<strong id="AllArticle"></strong></span>
                 </p>
             </div>
             <div class="search-box l">
@@ -83,7 +82,6 @@
             <!-- 左侧列表 -->
             <div class="list-view l">
                 <ul>
-                    <c:forEach items="${articleList}" var="article"></c:forEach>
 
                     <c:forEach items="${articlePageInfo.list}" var="article">
 
@@ -139,16 +137,14 @@
                         <a href="javascript:;">在线用户(2)</a>
                     </h3>
                     <ul class="b clearfix">
-                        <c:forEach items="${list}" var="user">
                         <li>
                             <div><img src="images/default.png" height="55"/> </div>
-                            <p>${user.userName}</p>
+                            <p>Mr.King</p>
                         </li>
                         <li>
                             <div><img src="images/default.png" height="55"/></div>
-                            <p>${user.userName}</p>
+                            <p>疯子</p>
                         </li>
-                        </c:forEach>
                     </ul>
                 </div>
             </div>
@@ -169,7 +165,7 @@
 </div>
 
 <!-- 发帖弹出框 -->
-<form action="${pageContext.request.contextPath}/article/save.do" method="post">
+<form action="" method="post">
     <div class="pop-box ft-box">
         <div class="mask"></div>
         <div class="win">

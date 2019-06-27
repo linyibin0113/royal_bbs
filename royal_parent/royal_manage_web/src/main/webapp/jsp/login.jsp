@@ -16,13 +16,13 @@
                 //发送ajax请求，提交表单数据
                 $.post("${pageContext.request.contextPath}/user/login", $("#login_form").serialize(), function (data) {
                     //data 如果没有设置响应头，那么会被当做String解析
-                    if (data.flag) {
+                    if (data) {
                        // alert("登录成功");
 
                         location.href="${pageContext.request.contextPath}/jsp/main.jsp";
                     } else {
                        // $("#errorMsg").css("name","登录失败"+ data.errorMsg)
-                        $("#errorMsg").text("登录失败:" + data.errorMsg);
+                        $("#errorMsg").text("登录失败:账号、密码错误或者权限错误");
                      //alert("登录失败:" + data.errorMsg);
                     }
                 })

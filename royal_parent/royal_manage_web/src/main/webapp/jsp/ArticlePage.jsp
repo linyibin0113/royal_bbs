@@ -48,7 +48,7 @@
                 <!-- Table -->
                 <div>
                     <div style="float: left">
-                        <form method="get" id="articleSearchForm">
+                        <form method="post" id="articleSearchForm" action="${pageContext.request.contextPath}/article/findArticle">
                             <table>
                                 <tr>
                                     <th>
@@ -67,7 +67,7 @@
                                                name="sendername" value="">
                                     </th>
                                     <th colspan="2">
-                                        <input type="button" value="查询" class="form-control btn-primary">
+                                        <input type="submit" value="查询" class="form-control btn-primary">
                                     </th>
                                 </tr>
                             </table>

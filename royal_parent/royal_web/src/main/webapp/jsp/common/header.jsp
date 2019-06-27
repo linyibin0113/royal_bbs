@@ -68,12 +68,12 @@
           //发送ajax请求，提交表单数据
           $.post("${pageContext.request.contextPath}/user/findByNameAndPass", $("#login_form").serialize(), function (data) {
               //data 如果没有设置响应头，那么会被当做String解析
-              if (data.flag) {
+              if (data) {
 
                   location.href="${pageContext.request.contextPath}/jsp/index.jsp";
               } else {
 
-                  alert("登录失败:" + data.errorMsg);
+                  alert("登录失败:账号或者密码错误");
               }
           })
       })

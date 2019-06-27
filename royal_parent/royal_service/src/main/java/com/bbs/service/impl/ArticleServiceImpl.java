@@ -8,6 +8,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
+
 import java.util.List;
 
 @Service
@@ -15,7 +16,13 @@ import java.util.List;
 public class ArticleServiceImpl implements ArticleService {
 
     @Autowired
-    private ArticleDao articleDao;
+
+    private  ArticleDao articleDao;
+    @Override
+    public List<Article> findByTitle(String title) {
+        return articleDao.findByTitle(title);
+
+    }
 
     //查询所有帖子
     @Override
@@ -33,6 +40,34 @@ public class ArticleServiceImpl implements ArticleService {
     //帖子置顶和取消置顶
     @Override
     public void changeStatus(Integer articleId) {
-         articleDao.changeStatus(articleId);
+        articleDao.changeStatus(articleId);
+
     }
+
+
+    @Override
+    public List<Article> findArticle(Integer page,Integer size,String title, String senderName) throws Exception {
+
+        PageHelper.startPage(page,size);
+        return articleDao.findArticle(title, senderName);
+
+    }
+
+    //查询帖子总数--zzl
+    @Override
+    public List<Article> findAll() {
+        return articleDao.findAll();
+    }
+
+    //获取今日帖子数量--zzl
+    @Override
+    public Integer findByTimePost() throws Exception {
+        return articleDao.findByTimePost();
+    }
+
+    /*//获取总帖子数量--zzl
+    @Override
+    public Integer findAll02() throws Exception {
+        return articleDao.findAll02();
+    }*/
 }
