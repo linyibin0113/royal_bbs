@@ -7,5 +7,7 @@
 </head>
 <body>
 <jsp:forward page="/article/query"/>
+<%--<jsp:forward page="/article/findAll02.do"/>--%>
+
 </body>
 </html>

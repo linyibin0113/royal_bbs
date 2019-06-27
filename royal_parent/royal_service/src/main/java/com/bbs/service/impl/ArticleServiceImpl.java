@@ -44,7 +44,19 @@ public class ArticleServiceImpl implements ArticleService {
 
     //查询帖子总数--zzl
     @Override
-    public Integer findByArticleId() {
-        return articleDao.findByArticleId();
+    public List<Article> findAll() {
+        return articleDao.findAll();
     }
+
+    //获取今日帖子数量--zzl
+    @Override
+    public Integer findByTimePost() throws Exception {
+        return articleDao.findByTimePost();
+    }
+
+    /*//获取总帖子数量--zzl
+    @Override
+    public Integer findAll02() throws Exception {
+        return articleDao.findAll02();
+    }*/
 }

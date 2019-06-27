@@ -49,7 +49,7 @@
                 <p>
                           <span>今日帖子<strong id="timepost"></strong></span>
                          <%-- <span>全部帖子<strong>${articlePageInfo.total}</strong></span>--%>
-                          <span>全部帖子<strong>${articlePageInfo.total}</strong></span>
+                          <span>全部帖子<strong id="AllArticle"></strong></span>
                 </p>
             </div>
             <div class="search-box l">

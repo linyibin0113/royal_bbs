@@ -69,8 +69,7 @@
           $.post("${pageContext.request.contextPath}/user/findByNameAndPass", $("#login_form").serialize(), function (data) {
               //data 如果没有设置响应头，那么会被当做String解析
               if (data.flag) {
-
-                  location.href="${pageContext.request.contextPath}/jsp/index.jsp";
+                  window.location.reload();
               } else {
 
                   alert("登录失败:" + data.errorMsg);

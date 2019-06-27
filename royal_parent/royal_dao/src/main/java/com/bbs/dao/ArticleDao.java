@@ -13,14 +13,23 @@ public interface ArticleDao {
     @Select("select * from bbs_article_table where title like #{title}")
      List<Article> findByTitle(@Param("title") String title);
 
+    //获取帖子总数--zzl
+    @Select("select * from bbs_article_table ")
+    List<Article> findAll();
+
+    //获取今日帖子数--zzl
+    @Select("SELECT COUNT(*) FROM bbs_article_table WHERE TO_DAYS(sendTime) = TO_DAYS(NOW());")
+    Integer findByTimePost()throws Exception;
+
+    /*//获取总帖子数--zzl
+    @Select("select count(*) from bbs_article_table ")
+    Integer findAll02()throws Exception;*/
 
     //查询所有帖子
     @Select("select * from bbs_article_table")
     List<Article> findByPage();
 
-    //查询帖子总数
-    @Select("select count(*) from bbs_article_table ")
-    Integer findByArticleId();
+
 
     //删除帖子
     @Delete("delete from bbs_article_table where articleId=#{articleId}")
