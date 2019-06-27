@@ -70,4 +70,21 @@ public class UserServiceImpl implements UserService{
     public void userUpgrade(Integer userId) {
         userDao.userUpgrade(userId);
     }
+    /**
+     * 根据姓名查询用户是否存在
+     * --lyb
+     * @param username
+     * @return
+     */
+    @Override
+    public boolean regist(String username,String userPass,String email) throws Exception {
+        User user = userDao.findByName(username);
+        //如果user有值，返回false
+        if (user !=null){
+            return false;
+        }
+        //如果没值，保存user
+        userDao.save(username,userPass,email);
+        return true;
+    }
 }

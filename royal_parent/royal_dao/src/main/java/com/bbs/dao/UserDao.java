@@ -1,6 +1,7 @@
 package com.bbs.dao;
 
 import com.bbs.domain.User;
+import org.apache.ibatis.annotations.Insert;
 import org.apache.ibatis.annotations.Param;
 import org.apache.ibatis.annotations.Select;
 import org.apache.ibatis.annotations.Update;
@@ -37,5 +38,18 @@ public interface UserDao {
     @Update("update bbs_user_table set updateStatus=1, role=2, isupdating=0 where userId=#{userId}")
     void userUpgrade(Integer userId);
 
-
+    /**
+     * 注册用户
+     * @param
+     */
+    @Insert("insert into bbs_user_table (username,userPass,email) values (#{username},#{userPass},#{email})")
+    void save(@Param("username") String username,@Param("userPass")String userPass,@Param("email")String email);
+    /**
+     * 根据姓名查询用户是否存在
+     * --lyb
+     * @param username
+     * @return
+     */
+    @Select("select * from bbs_user_table where userName = #{username}")
+    User findByName(String username) throws  Exception;
 }

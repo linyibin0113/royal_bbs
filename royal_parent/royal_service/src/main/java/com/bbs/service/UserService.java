@@ -29,4 +29,11 @@ public interface UserService {
 
     //普通用户升级为高级用户
     void userUpgrade(Integer userId);
+    /**
+     * 根据姓名查询用户是否存在
+     * --lyb
+     * @param username
+     * @return
+     */
+    boolean regist(String username,String userPass,String email) throws Exception;
 }
