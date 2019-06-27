@@ -81,11 +81,6 @@ public class UserServiceImpl implements UserService {
         userDao.updatePassword(userId,userPass);
     }
 
-    /***
-     * 显示在线用户功能 lwm
-     * @param findLoginStatus
-     * @return
-     */
     @Override
     public List<User> findLoginStatus( Integer findLoginStatus) {
         return userDao.findLoginStatus(findLoginStatus);
